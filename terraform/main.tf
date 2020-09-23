@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "${var.region}"
+  region = var.region
 }
 
 data "aws_ami" "amazon_linux" {
@@ -24,14 +24,15 @@ data "aws_ami" "amazon_linux" {
 
 variable "region" {
   description = "The AWS region to deploy to"
-  default = "ap-southeast-1"
+  default     = "ap-southeast-1"
 }
 
 variable "name" {
   description = "The name of the deployment"
-  default = ""
+  default     = ""
 }
 
 variable "public_key" {
   default = ""
 }
+

@@ -1,21 +1,21 @@
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = "${format("%s-vpc", var.name)}"
-  azs = "${var.vpc_azs}"
-  cidr = "${var.vpc_cidr}"
+  name = format("%s-vpc", var.name)
+  azs  = var.vpc_azs
+  cidr = var.vpc_cidr
 
-  public_subnets = "${var.vpc_public_subnets}"
-  private_subnets = "${var.vpc_private_subnets}"
-  database_subnets = "${var.vpc_database_subnets}"
+  public_subnets   = var.vpc_public_subnets
+  private_subnets  = var.vpc_private_subnets
+  database_subnets = var.vpc_database_subnets
 
-  enable_nat_gateway = "${var.vpc_enable_nat_gateway}"
-  single_nat_gateway = "${var.vpc_single_nat_gateway}"
-  one_nat_gateway_per_az = "${var.vpc_one_nat_gateway_per_az}"
+  enable_nat_gateway     = var.vpc_enable_nat_gateway
+  single_nat_gateway     = var.vpc_single_nat_gateway
+  one_nat_gateway_per_az = var.vpc_one_nat_gateway_per_az
 
-  tags {
-    Group = "${var.name}"
-  } 
+  tags = {
+    Group = var.name
+  }
 }
 
 # Borrowed from VPC Module from Terraform Module Repository:
@@ -35,7 +35,7 @@ variable "vpc_private_subnets" {
 }
 
 variable "vpc_database_subnets" {
-  type        = "list"
+  type        = list(string)
   description = "A list of database subnets"
   default     = []
 }
@@ -59,3 +59,4 @@ variable "vpc_one_nat_gateway_per_az" {
   description = "Should be true if you want only one NAT Gateway per availability zone. Requires `var.azs` to be set, and the number of `public_subnets` created to be greater than or equal to the number of availability zones specified in `var.azs`."
   default     = false
 }
+
