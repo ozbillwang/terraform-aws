@@ -37,18 +37,16 @@ module "elb_app" {
       instance_protocol = "TCP"
       lb_port           = var.app_port
       lb_protocol       = "TCP"
-    },
+    }
   ]
 
-  health_check = [
-    {
-      target              = "TCP:${var.app_port}"
-      interval            = var.app_elb_health_check_interval
-      healthy_threshold   = var.app_elb_healthy_threshold
-      unhealthy_threshold = var.app_elb_unhealthy_threshold
-      timeout             = var.app_elb_health_check_timeout
-    },
-  ]
+  health_check = {
+    target              = "TCP:${var.app_port}"
+    interval            = var.app_elb_health_check_interval
+    healthy_threshold   = var.app_elb_healthy_threshold
+    unhealthy_threshold = var.app_elb_unhealthy_threshold
+    timeout             = var.app_elb_health_check_timeout
+  }
 
   tags = {
     Group = var.name

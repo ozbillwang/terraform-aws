@@ -40,15 +40,13 @@ module "elb_web" {
     },
   ]
 
-  health_check = [
-    {
-      target              = "HTTP:${var.web_port}/"
-      interval            = var.web_elb_health_check_interval
-      healthy_threshold   = var.web_elb_healthy_threshold
-      unhealthy_threshold = var.web_elb_unhealthy_threshold
-      timeout             = var.web_elb_health_check_timeout
-    },
-  ]
+  health_check = {
+    target              = "HTTP:${var.web_port}/"
+    interval            = var.web_elb_health_check_interval
+    healthy_threshold   = var.web_elb_healthy_threshold
+    unhealthy_threshold = var.web_elb_unhealthy_threshold
+    timeout             = var.web_elb_health_check_timeout
+  }
 
   tags = {
     Group = var.name

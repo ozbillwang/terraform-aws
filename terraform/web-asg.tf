@@ -109,7 +109,7 @@ resource "aws_autoscaling_group" "web" {
   min_size = var.web_autoscale_min_size
   max_size = var.web_autoscale_max_size
 
-  tags = {
+  tag {
     key                 = "Group"
     value               = var.name
     propagate_at_launch = true
