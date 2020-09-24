@@ -15,7 +15,7 @@ resource "aws_security_group" "rds" {
     # If the expression in the following list itself returns a list, remove the
     # brackets to avoid interpretation as a list of lists. If the expression
     # returns a single list item then leave it as-is and remove this TODO comment.
-    cidr_blocks = [module.vpc.private_subnets_cidr_blocks]
+    cidr_blocks = module.vpc.private_subnets_cidr_blocks
   }
 
   tags = {
@@ -46,7 +46,7 @@ module "rds" {
   # disable backups to create DB faster
   backup_retention_period = var.db_backup_retention_period
 
-  subnet_ids = [module.vpc.database_subnets]
+  subnet_ids = module.vpc.database_subnets
 
   family = "postgres9.6"
 

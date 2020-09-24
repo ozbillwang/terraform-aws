@@ -7,7 +7,7 @@ resource "aws_security_group" "app" {
     from_port   = var.app_port
     to_port     = var.app_port
     protocol    = "tcp"
-    cidr_blocks = [module.vpc.public_subnets_cidr_blocks, module.vpc.private_subnets_cidr_blocks]
+    cidr_blocks = [module.vpc.vpc_cidr_block]
   }
 
   ingress {
@@ -22,7 +22,7 @@ resource "aws_security_group" "app" {
     # If the expression in the following list itself returns a list, remove the
     # brackets to avoid interpretation as a list of lists. If the expression
     # returns a single list item then leave it as-is and remove this TODO comment.
-    cidr_blocks = [module.vpc.public_subnets_cidr_blocks]
+    cidr_blocks = module.vpc.public_subnets_cidr_blocks
   }
 
   egress {
@@ -79,7 +79,7 @@ resource "aws_autoscaling_group" "app" {
   # If the expression in the following list itself returns a list, remove the
   # brackets to avoid interpretation as a list of lists. If the expression
   # returns a single list item then leave it as-is and remove this TODO comment.
-  vpc_zone_identifier = [module.vpc.private_subnets]
+  vpc_zone_identifier = module.vpc.private_subnets
 
   # TF-UPGRADE-TODO: In Terraform v0.10 and earlier, it was sometimes necessary to
   # force an interpolation expression to be interpreted as a list by wrapping it

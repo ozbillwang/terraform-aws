@@ -27,7 +27,7 @@ module "elb_app" {
 
   name = format("%s-elb-app", var.name)
 
-  subnets         = [module.vpc.private_subnets]
+  subnets         = module.vpc.private_subnets
   security_groups = [aws_security_group.elb_app.id]
   internal        = true
 

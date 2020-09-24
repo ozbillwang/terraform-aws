@@ -27,7 +27,7 @@ module "elb_web" {
 
   name = format("%s-elb-web", var.name)
 
-  subnets         = [module.vpc.public_subnets]
+  subnets         = module.vpc.public_subnets
   security_groups = [aws_security_group.elb_web.id]
   internal        = false
 
